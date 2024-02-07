@@ -35,16 +35,21 @@ Route::get('/','App\Http\Controllers\HomeController@index')->name("home.index");
 Route::get('about','App\Http\Controllers\HomeController@about')->name("home.about");
 
 Route::get('cases','App\Http\Controllers\Admin\AdminCaseController@index')->name("admin.case.index");
-//Route::get('clientCases','App\Http\Controllers\Admin\AdminCaseController@clientCases')->name("admin.case.index");
+Route::get('clientCases','App\Http\Controllers\Admin\AdminCaseController@clientCases')->name("admin.case.index");
 Route::get('newCase','App\Http\Controllers\Admin\AdminCaseController@create')->name("admin.case.create");
 Route::post('saveNewCase','App\Http\Controllers\Admin\AdminCaseController@save')->name("admin.case.save");
-Route::get('edit','App\Http\Controllers\Admin\AdminCaseController@edit')->name("admin.case.edit");
+
+
+Route::get('delete','App\Http\Controllers\Admin\AdminCaseController@delete')->name("admin.case.delete");
+Route::get('asign','App\Http\Controllers\Admin\AdminCaseController@asign')->name("admin.case.asign");
+Route::put('/case/{id}/update','App\Http\Controllers\Admin\AdminCaseController@update')->name("admin.case.update");
+Route::get('/case/{id}/edit','App\Http\Controllers\Admin\AdminCaseController@edit')->name("admin.case.edit");
+Route::get('delete','App\Http\Controllers\AdminCaseController@delete')->name("admin.case.delete");
+
+
 
 Route::get('/products','App\Http\Controllers\ProductController@index')->name("products.index");
-
-
 Route::get('/products/{id}','App\Http\Controllers\ProductController@show')->name("products.show");
-
 Route::get('/cart','App\Http\Controllers\CartController@index')->name("cart.index");
 Route::get('/cart/delete','App\Http\Controllers\CartController@delete')->name("cart.delete");
 Route::post('/cart/add{id}','App\Http\Controllers\CartController@add')->name("cart.add");

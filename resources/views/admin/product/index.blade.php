@@ -37,7 +37,7 @@
                                 <td>
                                     <form action="{{ route('admin.product.delete',$product->id) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('POST')
                                         <button class="btn btn-danger">
                                             <i class="bi-trash"></i>
                                         </button>

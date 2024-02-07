@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Court;
 use App\Models\Cases;
+use App\Models\Judge;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,23 +13,37 @@ use Illuminate\Support\Facades\Storage;
 class AdminCaseController extends Controller
 {
     public function clientCases(){
+
         $email = Auth::user()->email;
-    echo "logged-in user email address:".$email;
+        echo "logged-in user email address:".$email;
+        $email=[$email];
         $viewData=[];
         $viewData["title"] = "Created Cases";
-        $viewData["cases"] = Cases::where('email', '=',$email)->get();
+        $viewData["cases"] = Cases::whereIn('email', $email)->get();
         return view('admin.case.index')->with("viewData",$viewData);
 
     }
     public function index(){
-        $email = Auth::user()->email;
-        echo "logged-in user email address:".$email;
         $viewData=[];
         $viewData["title"] = "Created Cases";
         $viewData["cases"] = Cases::all();
-       // $viewData["cases"] = Cases::where('email', 'like %',$email)->get();
         return view('admin.case.index')->with("viewData",$viewData);
 
+
+
+
+    }
+
+    public function asign(){
+        $viewData=[];
+        $viewData["title"] = "Created Cases";
+        //$viewData["cases"] = Cases::all();
+        $viewData["cases"] = Cases::join('judge', 'cases.judge_id', '=', 'judge.id')
+                                  ->join('court', 'cases.court_id', '=', 'court.id')
+        ->select('cases.*', 'judge.judge_name as judge_name', 'court.court_name as court_name')
+        ->get();
+
+        return view('admin.case.asign')->with("viewData",$viewData);
     }
 
     public function create(){
@@ -44,46 +59,34 @@ public function save(Request $request){
     $newCase->email=$request->input('email');
     $newCase->case_status='Pending';
     $newCase->save();
-
-        // if( $request->hasFile('image') ){
-        //     $imageName = $newProduct->id.'.'.$request->file('image')->extension();
-        //     Storage::disk('public')->put($imageName,
-        //                     file_get_contents($request->file('image')->getRealPath()));
-        //     $newProduct->image = $imageName;
-        //     $newProduct->save();
-        // }
-        return redirect()->route('admin.case.index');
-        //return redirect()->route('admin.case.clientCases',['email'=>$request->input('email')]);
+    return redirect()->route('admin.case.index');
 
     }
-        public function delete($id){
-            Cases::destroy($id);
-            return back();
-            // ->with('success','Succees Deletion!');
 
-    }
     public function edit($id){
+
         $viewData=[];
-        $viewData["title"] = "Admin Page -Admin - Online Store ";
-        $viewData["product"] = Product::findOrFail($id);
-        return view('admin.product.edit')->with("viewData",$viewData);
+        $viewData["title"] = "Admin Page - Admin - Online Cases ";
+        $viewData["case"] = Cases::with('judge')->findOrFail($id);
+        $viewData["case"] = Cases::with('court')->findOrFail($id);
+        $viewData["judge"] = Judge::all();
+        $viewData["court"] = Court::all();
+        return view('admin.case.edit')->with("viewData",$viewData);
+
     }
+
     public function update(Request $request,$id){
-        Product::validate($request);
-        $product=Product::findOrFail($id);
-        $product->name=$request->input('name');
-        $product->description=$request->input('description');
-        $product->price=$request->input('price');
-        $product->image='game.png';
-        $product->save();
-            if( $request->hasFile('image') ){
-                $imageName = $product->id.'.'.$request->file('image')->extension();
-                Storage::disk('public')->put($imageName,file_get_contents($request->file('image')->getRealPath()));
-                $product->image = $imageName;
-            }
-            $product->save();
-            return redirect()->route('admin.product.index');
+        Cases::validate($request);
+        $case=Cases::findOrFail($id);
+        $case->case_status=$request->input('case_status');
+        $case->judge_id=$request->input('judge_id');
+        $case->court_id=$request->input('court_id');
+        $case->save();
+        return redirect()->route('admin.case.asign');
 
         }
-
+public function delete($id){
+            Cases::destroy($id);
+            return back();
+    }
 }

@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cases extends Model
+class Court extends Model
 {
     use HasFactory;
-
     public static function validate($request){
         $request->validate([
            // "case_description"=>"required|max:2000",
@@ -18,11 +16,20 @@ class Cases extends Model
            //"email"=> "required",
         ]);
     }
-    public function judge(){
-        return $this->belongsTo(Judge::class);
-    }
+    use HasFactory;
 
-    public function Court(){
-        return $this->belongsTo(Court::class);
+    protected $table='court';
+
+    protected $primeryKey   = 'id';
+
+    protected $fillable = [
+        'court_name',
+    ];
+
+    public function Cases(){
+        return $this->hasMany('App\Models\Cases');
+    }
+    public function Judge(){
+        return $this->hasMany('App\Models\Judge');
     }
 }

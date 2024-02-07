@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('judge', function (Blueprint $table) {
             $table->id();
-            $table->string('jugde_name');
+            $table->string('judge_name');
             $table->unsignedBigInteger('court_id');
             $table->foreign('court_id')->references('id')->on('court');
             $table->timestamps();

@@ -22,7 +22,7 @@
             <hr />
             <ul class="nav flex-column sidebar">
                 <li><a href="{{ route('admin.home.index') }}" class="nav-link text-white">- Admin - Home</a></li>
-                <li><a href="{{ route('admin.product.index') }}" class="nav-link text-white">- Admin - Cases</a></li>
+                <li><a href="{{ route('admin.case.asign') }}" class="nav-link text-white">- Admin - Asign</a></li>
                 {{-- <li><a href="#" class="nav-link text-white">- Admin - User</a></li> --}}
                 <li><a href="{{ route('admin.role.index') }}" class="nav-link text-white">- Admin - User</a></li>
                 <li> <a href="{{ route('home.index') }}" class="mt-2 btn bg-primary text-white">Go back to the home page</a></li>
