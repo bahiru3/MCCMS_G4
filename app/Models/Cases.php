@@ -25,4 +25,7 @@ class Cases extends Model
     public function Court(){
         return $this->belongsTo(Court::class);
     }
+    public function lowyer(){
+        return $this->belongsTo(lowyer::class);
+    }
 }

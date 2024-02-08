@@ -8,17 +8,22 @@ use Illuminate\Database\Migrations\Migration;
 
    class CreateLawyerTable extends Migration
    {
-       public function up()
-       {
-           Schema::create('lawyer', function (Blueprint $table) {
-               $table->id();
-               $table->string('name');
-               $table->string('email');
-               $table->string('phone');
-               $table->timestamps();
-           });
-       }
-
+    use HasFactory;
+    protected $table='lowyer';
+    protected $primeryKey   = 'id';
+    protected $fillable = [
+        'lowyer_name',
+    ];
+       
+    public function Cases(){
+        return $this->hasMany('App\Models\Cases');
+    }
+    public function Court(){
+        return $this->hasMany('App\Models\Court');
+    }
+    public function Lowyer(){
+        return $this->hasMany('App\Models\Lowyer');
+    }
        // ...
 
    }

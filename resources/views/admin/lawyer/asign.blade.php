@@ -2,7 +2,7 @@
 @section('title',$viewData['title'])
 @section('content')
     <div class="card-header">
-        <h2> Created Cases</h2>
+        <h2> Created lowyer</h2>
     </div>
         <div class="card">
             <div class= "card-body">
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($viewData['lowyer'] as $case)
+                        @foreach($viewData['lowyer'] as $lowyer)
                             <tr>
                                 <td>{{$case->id}}</td>
                                 <td>{{$case->case_type}}</td>

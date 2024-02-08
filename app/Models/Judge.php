@@ -19,4 +19,7 @@ public function Cases(){
 public function Court(){
     return $this->hasMany('App\Models\Court');
 }
+public function Lowyer(){
+    return $this->hasMany('App\Models\Lowyer');
+}
 }

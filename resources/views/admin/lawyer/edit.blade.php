@@ -2,7 +2,7 @@
 @section('title', $viewData['title'])
 @section('content')
     <div class="card mb-4">
-        <div class="card-header"> Edit Case</div>
+        <div class="card-header"> Edit lowyer</div>
         <div class="card-body">
             @if ($errors->any())
                 <ul class="alert alert-danger list-unstyled">
@@ -11,7 +11,7 @@
                     @endforeach
                 </ul>
             @endif
-            <form method="POST" action="{{ route('admin.case.update', ['id' => $viewData['case']->id]) }}"
+            <form method="POST" action="{{ route('admin.lowyer.update', ['id' => $viewData['lowyer']->id]) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -21,17 +21,17 @@
 
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Case Type:</label>
-                                <input name="case_type" value="{{ $viewData['case']->case_type }}" type="text"  class="form-control">
+                                <input name="case_type" value="{{ $viewData['lowyer']->lowyer_type }}" type="text"  class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Case Description</label>
-                        <textarea class="form-control" name="case_description" rows="3">{{ $viewData['case']->case_description }}</textarea>
+                        <textarea class="form-control" name="case_description" rows="3">{{ $viewData['case']->lowyer_description }}</textarea>
                     </div>
 
                     <div class="col-md-4">
-                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Case Status:</label>
+                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">lowyer Status:</label>
                         <select  id="case_status" class="form-control form-select @error('caseType') is-invalid @enderror" name="case_status">
                          <option value="{{ $viewData['case']->case_status }}" selected>{{ $viewData['case']->case_status }}</option>
                          <option value="Started">Started</option>

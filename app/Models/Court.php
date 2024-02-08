@@ -32,4 +32,7 @@ class Court extends Model
     public function Judge(){
         return $this->hasMany('App\Models\Judge');
     }
+    public function Lowyer(){
+        return $this->hasMany('App\Models\Lowyer');
+    }
 }

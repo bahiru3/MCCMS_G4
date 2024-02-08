@@ -2,7 +2,7 @@
 @section('title', $viewData['title'])
 @section('content')
    <div class="card mb-4">
-       <div class="card-header"> <h3> Create Case</h3> </div>
+       <div class="card-header"> <h3> Create lowyer</h3> </div>
        <div class="card-body">
            @if ($errors->any())
                <ul class="alert alert-danger list-unstyled">
@@ -11,7 +11,7 @@
                    @endforeach
                </ul>
            @endif
-           <form method="POST" action="{{ route('admin.case.save') }}" enctype="multipart/form-data">
+           <form method="POST" action="{{ route('admin.lowyer.save') }}" enctype="multipart/form-data">
 
                @csrf
                <div class="row">
